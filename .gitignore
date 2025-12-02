@@ -1,0 +1,85 @@
+# ============================================
+# .gitignore para Proyecto DevOps
+# ============================================
+
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Entornos virtuales
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs y Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs y bases de datos
+*.log
+*.sql
+*.sqlite
+*.db
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+
+# Archivos temporales
+*.tmp
+*.temp
+*.bak
+*.cache
+
+# Dependencias de Node.js (si se usa)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos del sistema
+Thumbs.db
+Desktop.ini
+
+# Archivos de configuración sensibles
+secrets.json
+credentials.json
+*.key
+*.pem
+
+# Carpetas de salida
+out/
+target/
+.gradle/
+
+# Archivos de cobertura y pruebas
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
