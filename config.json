@@ -1,0 +1,11 @@
+{
+  "proyecto": "Mi Primer Repo DevOps",
+  "actividad": "4.1",
+  "version": "1.0.0",
+  "configuracion": {
+    "entorno": "desarrollo",
+    "debug": true,
+    "puerto": 8080
+  },
+  "descripcion": "Repositorio de práctica para aprender Git y GitHub"
+}
