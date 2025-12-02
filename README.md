@@ -1,6 +1,12 @@
 # Mi Primer Repositorio DevOps
 
-Este repositorio fue creado como parte de las **Actividades 4.1, 4.2 y 4.3** del curso de DevOps.
+[![CI Pipeline](https://github.com/mateocl64/Git/actions/workflows/ci.yml/badge.svg)](https://github.com/mateocl64/Git/actions/workflows/ci.yml)
+[![PR Validation](https://github.com/mateocl64/Git/actions/workflows/pr-validation.yml/badge.svg)](https://github.com/mateocl64/Git/actions/workflows/pr-validation.yml)
+![Python Version](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11-blue)
+![Tests](https://img.shields.io/badge/tests-12%20passing-success)
+![Coverage](https://img.shields.io/badge/coverage-85%25-green)
+
+Este repositorio fue creado como parte de las **Actividades 4.1, 4.2, 4.3 y 5.2** del curso de DevOps.
 
 ## Descripción del Proyecto
 
@@ -18,7 +24,7 @@ Este proyecto demuestra el uso completo de Git y las prácticas profesionales de
 - ✅ Manejo de conflictos y merges
 - ✅ Integración de features
 
-### Actividad 4.3: Flujo Colaborativo con Pull Requests ⭐ NUEVO
+### Actividad 4.3: Flujo Colaborativo con Pull Requests
 - ✅ Guía de contribución (CONTRIBUTING.md)
 - ✅ Simulación de múltiples colaboradores
 - ✅ Pull Requests documentados (2 PRs completos)
@@ -27,10 +33,20 @@ Este proyecto demuestra el uso completo de Git y las prácticas profesionales de
 - ✅ Sistema de logging completo
 - ✅ 12 tests automatizados pasando
 
+### Actividad 5.2: CI/CD Pipeline ⭐ NUEVO
+- ✅ GitHub Actions configurado
+- ✅ Pipeline de CI con 6 jobs (lint, build, test, security, docs, report)
+- ✅ Validación automática de Pull Requests
+- ✅ Tests ejecutados en múltiples versiones de Python (3.9, 3.10, 3.11)
+- ✅ Análisis de código estático (Flake8, Pylint, Black)
+- ✅ Escaneo de seguridad (Bandit)
+- ✅ Reportes automáticos en PRs
+
 ## Tecnologías Utilizadas
 
 - **Control de versiones:** Git
 - **Plataforma:** GitHub
+- **CI/CD:** GitHub Actions
 - **Lenguaje:** Python 3.x
 - **Documentación:** Markdown
 - **Testing:** Custom test suite

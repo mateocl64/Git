@@ -1,0 +1,177 @@
+name: Pull Request Validation
+
+# Trigger: Solo en Pull Requests
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [ main ]
+
+jobs:
+  # Job de validación de PR
+  pr-validation:
+    name: PR Quality Check
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    
+    steps:
+    - name: Checkout PR
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Verificar título del PR
+      run: |
+        PR_TITLE="${{ github.event.pull_request.title }}"
+        echo "PR Title: $PR_TITLE"
+        
+        # Verificar que sigue Conventional Commits
+        if echo "$PR_TITLE" | grep -qE '^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?: .+'; then
+          echo "✅ Título del PR sigue Conventional Commits"
+        else
+          echo "⚠️  Título del PR no sigue Conventional Commits"
+          echo "   Formato esperado: tipo(scope): descripción"
+          echo "   Ejemplo: feat(api): agregar endpoint de usuarios"
+        fi
+        
+    - name: Verificar descripción del PR
+      run: |
+        BODY_LENGTH=$(echo "${{ github.event.pull_request.body }}" | wc -c)
+        
+        if [ $BODY_LENGTH -gt 50 ]; then
+          echo "✅ PR tiene descripción adecuada ($BODY_LENGTH caracteres)"
+        else
+          echo "⚠️  PR tiene descripción muy corta ($BODY_LENGTH caracteres)"
+          echo "   Considera agregar más contexto sobre los cambios"
+        fi
+        
+    - name: Verificar tamaño del PR
+      run: |
+        ADDITIONS=${{ github.event.pull_request.additions }}
+        DELETIONS=${{ github.event.pull_request.deletions }}
+        CHANGED_FILES=${{ github.event.pull_request.changed_files }}
+        
+        echo "📊 Estadísticas del PR:"
+        echo "  - Líneas agregadas: $ADDITIONS"
+        echo "  - Líneas eliminadas: $DELETIONS"
+        echo "  - Archivos modificados: $CHANGED_FILES"
+        
+        TOTAL_CHANGES=$((ADDITIONS + DELETIONS))
+        
+        if [ $TOTAL_CHANGES -lt 500 ]; then
+          echo "✅ PR de tamaño apropiado ($TOTAL_CHANGES líneas)"
+        elif [ $TOTAL_CHANGES -lt 1000 ]; then
+          echo "⚠️  PR grande ($TOTAL_CHANGES líneas) - considera dividirlo"
+        else
+          echo "❌ PR muy grande ($TOTAL_CHANGES líneas) - difícil de revisar"
+        fi
+        
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Ejecutar tests del PR
+      run: |
+        python src/test_app.py
+        echo "✅ Tests del PR pasaron correctamente"
+        
+    - name: Verificar archivos modificados
+      run: |
+        echo "📂 Archivos modificados en este PR:"
+        git diff --name-only origin/main...HEAD
+        
+    - name: Detectar cambios críticos
+      run: |
+        # Verificar si hay cambios en archivos críticos
+        if git diff --name-only origin/main...HEAD | grep -qE '(\.github/|requirements\.txt|setup\.py)'; then
+          echo "⚠️  Este PR modifica archivos críticos de configuración"
+          echo "   Requiere revisión cuidadosa"
+        fi
+        
+  # Job de análisis de código del PR
+  pr-code-quality:
+    name: PR Code Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout PR
+      uses: actions/checkout@v4
+      
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Instalar herramientas de análisis
+      run: |
+        pip install flake8 radon
+        
+    - name: Análisis de complejidad
+      run: |
+        echo "📊 Análisis de complejidad ciclomática:"
+        radon cc src/ -a -nb || true
+        
+    - name: Análisis de mantenibilidad
+      run: |
+        echo "📊 Índice de mantenibilidad:"
+        radon mi src/ -nb || true
+        
+  # Job de comentarios automáticos
+  pr-comment:
+    name: PR Auto Comment
+    runs-on: ubuntu-latest
+    needs: [pr-validation, pr-code-quality]
+    if: always()
+    permissions:
+      pull-requests: write
+    
+    steps:
+    - name: Comentar en el PR
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+          
+          const botComment = comments.find(comment => 
+            comment.user.type === 'Bot' && 
+            comment.body.includes('🤖 CI Pipeline Report')
+          );
+          
+          const commentBody = `
+          ## 🤖 CI Pipeline Report
+          
+          **Status:** ${{ needs.pr-validation.result == 'success' && needs.pr-code-quality.result == 'success' && '✅ Passed' || '❌ Failed' }}
+          
+          ### Validation Results
+          
+          - **PR Validation:** ${{ needs.pr-validation.result == 'success' && '✅' || '❌' }}
+          - **Code Quality:** ${{ needs.pr-code-quality.result == 'success' && '✅' || '❌' }}
+          
+          ### Next Steps
+          
+          ${{ needs.pr-validation.result == 'success' && needs.pr-code-quality.result == 'success' && '✅ Este PR está listo para revisión humana' || '⚠️ Por favor revisa los errores reportados arriba' }}
+          
+          ---
+          
+          *Este comentario es generado automáticamente por GitHub Actions*
+          `;
+          
+          if (botComment) {
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: botComment.id,
+              body: commentBody
+            });
+          } else {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: commentBody
+            });
+          }
