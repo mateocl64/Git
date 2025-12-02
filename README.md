@@ -42,6 +42,15 @@ Este proyecto demuestra el uso completo de Git y las prácticas profesionales de
 - ✅ Escaneo de seguridad (Bandit)
 - ✅ Reportes automáticos en PRs
 
+### Actividad 5.3: Falla Controlada y Feedback 🆕
+- ✅ Error intencional introducido (SyntaxError en línea 39)
+- ✅ Pipeline fallido analizado (commit cba21b1)
+- ✅ Logs y tiempos documentados (~1m 30s hasta fallo)
+- ✅ Error corregido exitosamente (commit 0c7439b)
+- ✅ Pipeline exitoso verificado (~4m 30s completo)
+- ✅ Comparativa de métricas (66% ahorro de tiempo con fail-fast)
+- ✅ 6 lecciones aprendidas documentadas
+
 ## Tecnologías Utilizadas
 
 - **Control de versiones:** Git
@@ -76,6 +85,13 @@ Git/
     │
     ├── ACTIVIDAD-4.3-PULL-REQUESTS.md # ⭐ Proceso de PRs
     ├── ENTREGA-4.3.md                 # ⭐ Documento de entrega
+    │
+    ├── ACTIVIDAD-5.2-CI-PIPELINE.md   # 🆕 Pipeline CI/CD técnico
+    ├── ENTREGA-5.2.md                 # 🆕 Entrega Actividad 5.2
+    ├── RESUMEN-VISUAL-5.2.md          # 🆕 Resumen visual CI/CD
+    │
+    ├── ACTIVIDAD-5.3-FALLAS-CONTROLADAS.md # 🔥 Análisis de fallos
+    ├── ENTREGA-5.3.md                 # 🔥 Entrega Actividad 5.3
     │
     ├── ACTIVIDAD-4.2-CONFLICTOS.md    # Resolución de conflictos
     ├── ENTREGA-4.2.md                 # Entrega actividad 4.2
