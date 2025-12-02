@@ -5,15 +5,30 @@ Actividad 4.1 - Mi primer repositorio
 
 def saludar(nombre):
     """
-    Función que retorna un saludo personalizado
+    Función que retorna un saludo personalizado mejorado
     
     Args:
         nombre (str): Nombre de la persona a saludar
     
     Returns:
-        str: Mensaje de saludo
+        str: Mensaje de saludo personalizado con emoji
     """
-    return f"¡Hola, {nombre}! Bienvenido al mundo DevOps"
+    return f"👋 ¡Hola, {nombre}! Bienvenido al increíble mundo DevOps 🚀"
+
+
+def obtener_estadisticas():
+    """
+    Obtiene las estadísticas del proyecto DevOps
+    
+    Returns:
+        dict: Diccionario con estadísticas del proyecto
+    """
+    return {
+        "commits": 13,
+        "ramas": 3,
+        "archivos": 12,
+        "colaboradores": 1
+    }
 
 
 def despedir(nombre):
@@ -46,18 +61,31 @@ def calcular_progreso(tareas_completadas, tareas_totales):
 
 
 def main():
-    """Función principal de la aplicación"""
-    print("=== Mi Primera Aplicación DevOps ===")
+    """Función principal de la aplicación mejorada"""
+    print("╔══════════════════════════════════════════╗")
+    print("║  Mi Primera Aplicación DevOps - v2.0    ║")
+    print("╚══════════════════════════════════════════╝\n")
+    
     mensaje = saludar("Estudiante")
     print(mensaje)
-    print("\n✓ Repositorio configurado correctamente")
-    print("✓ Control de versiones activo")
+    
+    print("\n✅ Repositorio configurado correctamente")
+    print("✅ Control de versiones activo")
+    print("✅ Trabajo con ramas implementado")
     
     # Nueva funcionalidad: cálculo de progreso
     tareas_completadas = 7
     tareas_totales = 10
     progreso = calcular_progreso(tareas_completadas, tareas_totales)
     print(f"\n📊 Progreso del proyecto: {progreso:.1f}%")
+    
+    # Mostrar estadísticas
+    stats = obtener_estadisticas()
+    print("\n📊 Estadísticas del Proyecto:")
+    print(f"   • Commits: {stats['commits']}")
+    print(f"   • Ramas: {stats['ramas']}")
+    print(f"   • Archivos: {stats['archivos']}")
+    print(f"   • Colaboradores: {stats['colaboradores']}")
     
     # Mensaje de despedida
     despedida = despedir("Estudiante")
