@@ -1,14 +1,17 @@
 # Mi Primer Repositorio DevOps
 
-Este repositorio fue creado como parte de la **Actividad 4.1** del curso de DevOps.
+Este repositorio fue creado como parte de la **Actividad 4.1 y 4.2** del curso de DevOps.
 
 ## Descripción del Proyecto
 
-Este proyecto demuestra el uso básico de Git y las prácticas de control de versiones, incluyendo:
-- Inicialización de un repositorio local
-- Configuración de `.gitignore`
-- Realización de commits significativos
-- Conexión con un repositorio remoto
+Este proyecto demuestra el uso básico y avanzado de Git y las prácticas de control de versiones, incluyendo:
+- ✅ Inicialización de un repositorio local
+- ✅ Configuración de `.gitignore`
+- ✅ Realización de commits significativos
+- ✅ Conexión con un repositorio remoto
+- ✅ **Trabajo con ramas (branches)**
+- ✅ **Manejo de conflictos y merges**
+- ✅ **Colaboración mediante pull requests**
 
 ## Tecnologías Utilizadas
 
