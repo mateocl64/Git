@@ -87,6 +87,42 @@ def test_calcular_progreso_errores():
         print("✓ Test calcular_progreso (tipo incorrecto): PASADO")
 
 
+def test_logging():
+    """Test para verificar que el logging funciona correctamente"""
+    import logging
+    import os
+    
+    # Probar que el logger está configurado
+    assert hasattr(app, 'logger'), "El módulo debe tener un logger"
+    assert isinstance(app.logger, logging.Logger), "logger debe ser una instancia de Logger"
+    
+    print("✓ Test logging (configuración): PASADO")
+    
+    # Probar que las funciones hacen logging
+    # Limpiar archivo de log si existe
+    if os.path.exists('app.log'):
+        os.remove('app.log')
+    
+    # Ejecutar una función que genera logs
+    try:
+        app.saludar("Test")
+        app.calcular_progreso(5, 10)
+    except Exception:
+        pass
+    
+    # Verificar que se creó el archivo de log
+    assert os.path.exists('app.log'), "Debe existir el archivo app.log"
+    print("✓ Test logging (archivo creado): PASADO")
+    
+    # Verificar que hay contenido en el log
+    with open('app.log', 'r') as f:
+        log_content = f.read()
+        assert len(log_content) > 0, "El archivo de log debe tener contenido"
+        assert "INFO" in log_content or "ERROR" in log_content or "DEBUG" in log_content
+    
+    print("✓ Test logging (contenido): PASADO")
+
+
 def run_all_tests():
     """Ejecuta todos los tests"""
     print("=== Ejecutando Tests ===\n")
@@ -95,7 +131,8 @@ def run_all_tests():
     test_despedir()
     test_calcular_progreso()
     test_calcular_progreso_errores()
-    print("\n✅ Todos los tests pasaron correctamente")
+    test_logging()
+    print("\n=== ✅ Todos los tests pasaron ===\n")
 
 
 if __name__ == "__main__":
