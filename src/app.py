@@ -36,8 +36,8 @@ def saludar(nombre):
         logger.error("Validación fallida: nombre inválido")
         raise ValueError("El nombre debe ser una cadena de texto no vacía")
     
-    if nombre.strip() == ""
-        logger.error("Validación fallida: nombre vacío")  # ERROR INTENCIONAL: Falta dos puntos (:)
+    if nombre.strip() == "":
+        logger.error("Validación fallida: nombre vacío")
         raise ValueError("El nombre no puede estar vacío")
     
     logger.info(f"Saludo exitoso para: {nombre}")
