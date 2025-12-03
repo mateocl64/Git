@@ -120,7 +120,9 @@ def calcular_progreso(tareas_completadas, tareas_totales):
         logger.info("tareas_totales es 0, retornando progreso 0.0")
         return 0.0
     
-    progreso = (tareas_completadas / tareas_totales) * 100
+    # ⚠️ ERROR INTENCIONAL para simular rollback
+    # División por cero introducida para versión v2.0.0
+    progreso = (tareas_completadas / 0) * 100  # ❌ BUG: División por cero
     logger.info(f"Progreso calculado: {progreso:.2f}%")
     return progreso
 
