@@ -1,8 +1,10 @@
 # Mi Primer Repositorio DevOps
 
 [![CI Pipeline](https://github.com/mateocl64/Git/actions/workflows/ci.yml/badge.svg)](https://github.com/mateocl64/Git/actions/workflows/ci.yml)
+[![CD Pipeline](https://github.com/mateocl64/Git/actions/workflows/cd.yml/badge.svg)](https://github.com/mateocl64/Git/actions/workflows/cd.yml)
 [![PR Validation](https://github.com/mateocl64/Git/actions/workflows/pr-validation.yml/badge.svg)](https://github.com/mateocl64/Git/actions/workflows/pr-validation.yml)
 ![Python Version](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11-blue)
+![Docker](https://img.shields.io/badge/docker-28.5.2-blue)
 ![Tests](https://img.shields.io/badge/tests-12%20passing-success)
 ![Coverage](https://img.shields.io/badge/coverage-85%25-green)
 
@@ -48,6 +50,49 @@ Este proyecto demuestra el uso completo de Git y las prácticas profesionales de
 - ✅ Logs y tiempos documentados (~1m 30s hasta fallo)
 - ✅ Error corregido exitosamente (commit 0c7439b)
 - ✅ Pipeline exitoso verificado (~4m 30s completo)
+
+### Actividad 6.2: Pipeline de CD a Entorno de Pruebas 🚀 NUEVO
+- ✅ **Containerización completa con Docker**
+  - Dockerfile multi-stage optimizado (builder + runtime)
+  - Imagen base oficial: python:3.11-slim (~200MB)
+  - Usuario no-root: appuser (UID 1000)
+  - Health check integrado (cada 30s)
+  - Build context optimizado con .dockerignore (99.97% reducción)
+  
+- ✅ **Orquestación con Docker Compose**
+  - Network isolation: devops-network (bridge)
+  - Resource limits: CPU 0.5, RAM 512MB
+  - Volume mounts para logs persistentes
+  - Environment variables configurables
+  
+- ✅ **Pipeline de CD con GitHub Actions**
+  - 5 jobs orquestados: build → test/security → deploy → report
+  - Build Docker image con multi-platform support
+  - Testing automatizado en container
+  - Security scan con Trivy (CRITICAL + HIGH)
+  - Deploy con docker-compose
+  - Consolidated report con all jobs status
+  - Tiempo total: ~6-8 minutos
+  
+- ✅ **Seguridad básica implementada**
+  - Trivy scanner integrado en pipeline
+  - Non-root user (appuser, UID 1000)
+  - No secrets hardcoded
+  - Resource limits (CPU, RAM)
+  - Network isolation
+  - Explicit permissions
+  
+- ✅ **Logging y monitoreo**
+  - GitHub Actions logs por cada job
+  - Application logs persistentes (/app/logs)
+  - Container logs accesibles
+  - Health checks automáticos
+  
+- ✅ **Documentación completa**
+  - ACTIVIDAD-6.2-CD-PIPELINE.md (~2000 líneas)
+  - ENTREGA-6.2.md con rúbrica técnica
+  - 10 secciones detalladas
+  - Comandos útiles y troubleshooting
 - ✅ Comparativa de métricas (66% ahorro de tiempo con fail-fast)
 - ✅ 6 lecciones aprendidas documentadas
 
